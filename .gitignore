@@ -1,0 +1,15 @@
+# SASS
+src/assets/sass/.sass-cache/*
+src/.sass-cache/*
+
+# Logs
+src/logs/*
+build/logs/*
+
+# Bower
+src/bower_components/*
+
+# Node
+node_modules/*
+node_modules
+npm-debug.log*

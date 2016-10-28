@@ -1,0 +1,41 @@
+/*! Main styles for theme */
+
+// User Variables an Mixins
+//@import 'partials/variables';
+
+// Vendors
+//@import 'vendors/fontawesome';
+
+// User styles
+@import 'partials/container';
+
+
+/*
+	++++ GLOBALS
+*/
+html{}
+body{}
+
+svg use {
+    pointer-events: none;
+}
+
+a{}
+
+img{
+	height: auto;
+	max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{}
+
+iframe{
+	max-width: 100%;
+}
+
+strong, b{}

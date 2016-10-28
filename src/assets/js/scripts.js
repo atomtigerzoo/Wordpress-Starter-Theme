@@ -1,0 +1,7 @@
+/*
+ * User scripts
+ */
+
+(function () {
+	
+}());

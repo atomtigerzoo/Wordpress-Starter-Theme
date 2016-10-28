@@ -1,0 +1,19 @@
+{
+	"name": "theme init",
+	"version": "1.0",
+	"authors": [
+		"Your Name <mail@example.com>"
+	],
+	"license": "None",
+	"homepage": "#",
+	"private": true,
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests",
+		"src"
+	],
+	"dependencies": {}
+}
