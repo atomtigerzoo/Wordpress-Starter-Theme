@@ -35,7 +35,6 @@ const path = {
 };
 
 
-
 /*
  * ++++ Gulp and plugins
  */
@@ -53,8 +52,6 @@ const gulp = require('gulp'),
 
 // Autoload other gulp plugins
 const plugins = require('gulp-load-plugins')();
-
-
 
 
 /*
@@ -245,8 +242,6 @@ gulp.task('updateThemeVersion', ['buildMake'], function () {
 });
 
 
-
-
 /*
  * ++++ Task runners
  */
@@ -265,7 +260,7 @@ gulp.task('default', ['fontSync', 'babel', 'sassCompile'], function () {
 	
 	gulp.watch(`${path.src}/assets/sass/**/*.scss`, ['sassCompile']);
 
-	gulp.watch(`${path.js}/**/*.js`, ['babel'])
+	gulp.watch(`${path.js}/**/*.js`, ['babel']);
 
 	gulp.watch([
 		`${path.jsTemp}/*.js`,
