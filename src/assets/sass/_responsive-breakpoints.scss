@@ -1,0 +1,23 @@
+/*
+	Breakpoint mixins
+*/
+
+@mixin breakpoint-up($name) {
+	@media (min-width: $name) {
+		@content;
+	}
+}
+
+@mixin breakpoint-down($name) {
+	@media (max-width: $name) {
+		@content;
+	}
+}
+
+@mixin breakpoint($name) {
+	@include breakpoint-up($name) {
+		@include breakpoint-down($name) {
+			@content;
+		}
+	}
+}
