@@ -40,15 +40,15 @@ const path = {
  */
 
 // Load gulp and plugins
-const gulp = require('gulp'),
-	babel = require('gulp-babel'),
-	browserSync = require('browser-sync'),
-	concat = require('gulp-concat'),
-	del = require('del'),
-	pngquant = require('imagemin-pngquant'),
-	sass = require('gulp-sass'),
-	sourcemaps = require('gulp-sourcemaps'),
-	vinylPaths = require('vinyl-paths');
+const gulp = require('gulp');
+const babel = require('gulp-babel');
+const browserSync = require('browser-sync');
+const concat = require('gulp-concat');
+const del = require('del');
+const pngquant = require('imagemin-pngquant');
+const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
+const vinylPaths = require('vinyl-paths');
 
 // Autoload other gulp plugins
 const plugins = require('gulp-load-plugins')();
@@ -63,41 +63,41 @@ const plugins = require('gulp-load-plugins')();
  * Copy fonts from bower folder to src
  * Add all font directories you want to keep in sync
  */
-gulp.task('fontSync', function () {
-	return gulp.src([
-		//path.bower + '/fontawesome/fonts/**.*'
+gulp.task('fontSync', () =>
+	gulp.src([
+		// path.bower + '/fontawesome/fonts/**.*'
 	])
-	.pipe(gulp.dest(path.fonts));
-});
+	.pipe(gulp.dest(path.fonts))
+);
 
 
 /*
  * Copy all files from source to build
  */
-gulp.task('copySrcToBuild', ['cleanBuildFolder', 'sassCompile'], function () {
-	return gulp.src([
+gulp.task('copySrcToBuild', ['cleanBuildFolder', 'sassCompile'], () =>
+	gulp.src([
 		`${path.src}/**/*`
 	])
 	.pipe(gulp.dest(
 		`${path.build}/`
-	));
-});
+	))
+);
 
 
 /*
  * Clean build folder
  */
-gulp.task('cleanBuildFolder', function () {
-	return gulp.src(`${path.build}/*`)
-		.pipe(vinylPaths(del));
-});
+gulp.task('cleanBuildFolder', () =>
+	gulp.src(`${path.build}/*`)
+		.pipe(vinylPaths(del))
+);
 
 
 /*
  * Remove unused files and folders from build folder
  */
-gulp.task('cleanAfterBuild', ['buildMake'], function () {
-	return gulp.src([
+gulp.task('cleanAfterBuild', ['buildMake'], () =>
+	gulp.src([
 		`${path.build}/bower_components`,
 		`${path.build}/assets`,
 		`${path.build}/${config.styleName}.css`
@@ -105,23 +105,23 @@ gulp.task('cleanAfterBuild', ['buildMake'], function () {
 		// from your build folder:
 		// path.build + '/logs/*',
 	])
-	.pipe(vinylPaths(del));
-});
+	.pipe(vinylPaths(del))
+);
 
 
 /*
  * Run all transpile tasks
  */
-gulp.task('babel', ['babelConcatMainJS'], function () {
-	return gulp;
-});
+gulp.task('babel', ['babelConcatMainJS'], () =>
+	gulp
+);
 
 
 /*
  * Transpile Javascript and concat everything for development
  */
-gulp.task('babelConcatMainJS', function () {
-	return gulp.src([
+gulp.task('babelConcatMainJS', () =>
+	gulp.src([
 		`${path.js}/*.js`,
 		// Exclude files or folders that should not be transpiled:
 		// '!' + path.js + '/some-script-to-be-excluded.js',
@@ -132,15 +132,15 @@ gulp.task('babelConcatMainJS', function () {
 	.pipe(sourcemaps.write('.'))
 	.pipe(gulp.dest(path.jsTemp))
 
-	.pipe(browserSync.stream());
-});
+	.pipe(browserSync.stream())
+);
 
 
 /*
  * Concatenate and minify javascript
  */
-gulp.task('concatBuildJS', ['copySrcToBuild', 'babel'], function () {
-	return gulp.src(`${path.build}/footer-scripts.php`)
+gulp.task('concatBuildJS', ['copySrcToBuild', 'babel'], () =>
+	gulp.src(`${path.build}/footer-scripts.php`)
 		// Remove Wordpress path
 		.pipe(plugins.replace(
 			'<?php echo get_template_directory_uri(); ?>',
@@ -159,15 +159,15 @@ gulp.task('concatBuildJS', ['copySrcToBuild', 'babel'], function () {
 			'/assets-build/',
 			'<?php echo get_template_directory_uri(); ?>/assets-build/'
 		))
-		.pipe(gulp.dest(path.build));
-});
+		.pipe(gulp.dest(path.build))
+);
 
 
 /*
  * SASS compile and create sourcemaps
  */
-gulp.task('sassCompile', function () {
-	return gulp.src(`${path.src}/assets/sass/${config.styleName}.scss`)
+gulp.task('sassCompile', () =>
+	gulp.src(`${path.src}/assets/sass/${config.styleName}.scss`)
 		.pipe(sourcemaps.init())
 		.pipe(
 			sass({
@@ -179,15 +179,15 @@ gulp.task('sassCompile', function () {
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(path.src))
 
-		.pipe(browserSync.stream());
-});
+		.pipe(browserSync.stream())
+);
 
 
 /*
  * Minify CSS
  */
-gulp.task('concatBuildCSS', ['copySrcToBuild'], function () {
-	return gulp.src(`${path.build}/header-styles.php`)
+gulp.task('concatBuildCSS', ['copySrcToBuild'], () =>
+	gulp.src(`${path.build}/header-styles.php`)
 		// Remove Wordpress path for minification
 		.pipe(plugins.replace(
 			'<?php echo get_template_directory_uri(); ?>',
@@ -205,15 +205,15 @@ gulp.task('concatBuildCSS', ['copySrcToBuild'], function () {
 			`<?php echo get_template_directory_uri(); ?>/${config.styleName}`
 		))
 
-		.pipe(gulp.dest(path.build));
-});
+		.pipe(gulp.dest(path.build))
+);
 
 
 /*
  * Optimise images in build folder
  */
-gulp.task('imageOptimise', ['copySrcToBuild'], function () {
-	return gulp.src(`${path.build}/img/*`)
+gulp.task('imageOptimise', ['copySrcToBuild'], () =>
+	gulp.src(`${path.build}/img/*`)
 		.pipe(plugins.imagemin({
 			// JPG
 			progressive: true,
@@ -224,20 +224,24 @@ gulp.task('imageOptimise', ['copySrcToBuild'], function () {
 			optimizationLevel: 3,
 			use: [pngquant()]
 		}))
-		.pipe(gulp.dest(`${path.build}/img/`));
-});
+		.pipe(gulp.dest(`${path.build}/img/`))
+);
 
 
 /*
  * Update version in CSS for Wordpress (for new builds)
  */
-gulp.task('updateThemeVersion', ['buildMake'], function () {
+gulp.task('updateThemeVersion', ['buildMake'], () => {
 	const d = new Date();
-	const date = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2) +
-		('0' + d.getHours()).slice(-2) + ('0' + d.getMinutes()).slice(-2);
+
+	const buildDate = d.getFullYear() +
+								(`0${d.getMonth() + 1}`).slice(-2) +
+								(`0${d.getDate()}`).slice(-2) +
+								(`0${d.getHours()}`).slice(-2) +
+								(`0${d.getMinutes()}`).slice(-2);
 	
 	return gulp.src(`${path.build}/style.css`)
-		.pipe(plugins.replace('__DEVEL__', `-build.${date}`))
+		.pipe(plugins.replace('__DEVEL__', `-build.${buildDate}`))
 		.pipe(gulp.dest(path.build));
 });
 
@@ -252,7 +256,7 @@ gulp.task('updateThemeVersion', ['buildMake'], function () {
  * Compile, transpile, copy fonts and serve the browsersync
  * version of the theme for development.
  */
-gulp.task('default', ['fontSync', 'babel', 'sassCompile'], function () {
+gulp.task('default', ['fontSync', 'babel', 'sassCompile'], () => {
 	browserSync.init({
 		proxy: config.proxyUrl,
 		notify: false // change to true, if you like the overlay on change/reload
