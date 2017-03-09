@@ -167,15 +167,15 @@ gulp.task('concatBuildJS', ['copySrcToBuild', 'babel'], function () {
  * SASS compile and create sourcemaps
  */
 gulp.task('sassCompile', function () {
-	return gulp.src(`${path.src}/assets/sass/${config.styleName}.scss`)	
+	return gulp.src(`${path.src}/assets/sass/${config.styleName}.scss`)
 		.pipe(sourcemaps.init())
-		.pipe(sass({
-			outputStyle: 'expanded',
-			precision: 10,
-			onError: function (err) {
-				notify().write(err);
-			}
-		}))
+		.pipe(
+			sass({
+				outputStyle: 'expanded',
+				precision: 10
+			})
+			.on('error', sass.logError)
+		)
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(path.src))
 
