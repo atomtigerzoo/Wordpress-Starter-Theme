@@ -18,7 +18,7 @@ require "inc/config.php";
  * Register menus for Wordpres
  */
 register_nav_menus(array(
-	//'main-navigation' => 'Main navigation',
+	'main-navigation' => 'Main navigation',
 ));
 
 

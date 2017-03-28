@@ -2,6 +2,6 @@
  * User scripts
  */
 
-(function () {
+(() => {
 	
-}());
+})();
