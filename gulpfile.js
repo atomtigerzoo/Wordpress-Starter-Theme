@@ -76,6 +76,7 @@ gulp.task('fontSync', () =>
  */
 gulp.task('copySrcToBuild', ['cleanBuildFolder', 'sassCompile'], () =>
   gulp.src([
+    `${path.src}/**/.*`,
     `${path.src}/**/*`
   ])
   .pipe(gulp.dest(
@@ -124,7 +125,7 @@ gulp.task('babelConcatMainJS', () =>
   gulp.src([
     `${path.js}/*.js`,
     // Exclude files or folders that should not be transpiled:
-    // '!' + path.js + '/some-script-to-be-excluded.js',
+    // `!${path.js}/some-script-to-be-excluded.js`,
   ])
   .pipe(sourcemaps.init())
   .pipe(babel())
