@@ -67,7 +67,7 @@ gulp.task('fontSync', () =>
 /*
  * Copy all files from source to build
  */
-gulp.task('copySrcToBuild', ['cleanBuildFolder', 'sassCompile'], () =>
+gulp.task('copySrcToBuild', ['cleanBuildFolder', 'css'], () =>
   gulp.src([
     `${path.src}/**/.*`,
     `${path.src}/**/*`
