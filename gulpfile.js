@@ -4,7 +4,6 @@
  * @version 0.2
  */
 
-
 /*
  * Configuration
  */
@@ -12,7 +11,7 @@ const config = {
   // This is the filename of your main SASS file.
   // Edit the filename (/assets/sass/styles.theme.scss) and reference
   // in /header.php accordingly if you change the name here!
-  styleName:  'styles.theme',
+  styleName: 'styles.theme',
 
   // URl to proxy for browsersync
   proxyUrl: 'https://virtual.your-server.com'
@@ -46,9 +45,12 @@ const browserSync = require('browser-sync');
 const concat = require('gulp-concat');
 const del = require('del');
 const pngquant = require('imagemin-pngquant');
-const sass = require('gulp-sass');
+const postcss = require("gulp-postcss");
+const cssImport = require("postcss-import");
+const cssnext = require("postcss-cssnext");
 const sourcemaps = require('gulp-sourcemaps');
 const vinylPaths = require('vinyl-paths');
+
 
 // Autoload other gulp plugins
 const plugins = require('gulp-load-plugins')();
@@ -165,27 +167,21 @@ gulp.task('concatBuildJS', ['copySrcToBuild', 'babel'], () =>
 
 
 /*
- * SASS compile and create sourcemaps
+ * Compile CSS with PostCSS
  */
-gulp.task('sassCompile', () =>
-  gulp.src(`${path.src}/assets/sass/${config.styleName}.scss`)
-    .pipe(sourcemaps.init())
-    .pipe(
-      sass({
-        outputStyle: 'expanded',
-        precision: 10
-      })
-      .on('error', sass.logError)
-    )
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(path.src))
-
+gulp.task('css', () => (
+  gulp.src(`${path.src}/assets/css/*.css`)
+    .pipe(postcss([
+      cssImport({ from: `${path.src}/assets/css/${config.styleName}.css` }),
+      cssnext()
+    ]))
+    .pipe(gulp.dest(`${path.src}/`))
     .pipe(browserSync.stream())
-);
+));
 
 
 /*
- * Minify CSS
+ * Minify CSS and update version
  */
 gulp.task('concatBuildCSS', ['copySrcToBuild'], () =>
   gulp.src(`${path.build}/header-styles.php`)
@@ -257,13 +253,13 @@ gulp.task('updateThemeVersion', ['buildMake'], () => {
  * Compile, transpile, copy fonts and serve the browsersync
  * version of the theme for development.
  */
-gulp.task('default', ['fontSync', 'babel', 'sassCompile'], () => {
+gulp.task('default', ['fontSync', 'babel', 'css'], () => {
   browserSync.init({
     proxy: config.proxyUrl,
     notify: false // change to true, if you like the overlay on change/reload
   });
   
-  gulp.watch(`${path.src}/assets/sass/**/*.scss`, ['sassCompile']);
+  gulp.watch(`${path.src}/assets/css/**/*.css`, ['css']);
 
   gulp.watch(`${path.js}/**/*.js`, ['babel']);
 
@@ -293,7 +289,7 @@ gulp.task('build', [
  * Internal build runner - don't run this! Run gulp build instead
  */
 gulp.task('buildMake', [
-  'sassCompile',
+  'css',
   'babel',
   'cleanBuildFolder',
   'copySrcToBuild',

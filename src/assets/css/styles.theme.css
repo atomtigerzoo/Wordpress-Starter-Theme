@@ -1,33 +1,22 @@
 /* Main styles for theme */
 
 /* User Variables and Mixins */
-
-/*
-	Breakpoint mixins
-*/
+@import '_responsive-breakpoints.css';
 
 /* User styles */
+@import 'partials/_container.css';
 
-/*
- * Partials: layout containers
- */
 
 /*
 	++++ GLOBALS
 */
-
 html{}
-
 body{
   background-color: #fff;
   font-family: sans-serif;
 
   /* Breakpoint example */
-}
-
-@media (min-width: 1200px){
-
-  body{}
+  @media (--xlarge-up){}
 }
 
 svg use {
