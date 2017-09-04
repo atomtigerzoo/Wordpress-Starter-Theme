@@ -143,7 +143,7 @@ gulp.task('concatBuildJS', ['copySrcToBuild', 'babel'], () =>
     // Uglify
     .pipe(plugins.usemin({
       jsFooter: [
-        plugins.uglify({ preserveComments: 'some' }),
+        plugins.uglify({ compress: true }),
         'concat',
         plugins.rev()
       ]
