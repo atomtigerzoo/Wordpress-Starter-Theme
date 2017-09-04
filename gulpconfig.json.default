@@ -1,0 +1,5 @@
+{
+  "styleName": "styles.theme",
+  "proxyUrl": "https://virtual.your-server.com",
+  "notifyBS": false
+}

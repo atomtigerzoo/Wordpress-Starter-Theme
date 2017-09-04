@@ -1,6 +1,11 @@
-# SASS
-src/assets/sass/.sass-cache/*
-src/.sass-cache/*
+# Config
+gulpconfig.json
+
+# Exclude /build if you don't want it in your repo
+#build/*
+
+# Transpiled JS
+src/assets/js-transpiled/*
 
 # Logs
 src/logs/*
@@ -12,4 +17,3 @@ src/bower_components/*
 # Node
 node_modules/*
 node_modules
-npm-debug.log*

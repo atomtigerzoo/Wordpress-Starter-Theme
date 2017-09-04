@@ -5,36 +5,6 @@
  */
 
 /*
- * Configuration
- */
-const config = {
-  // This is the filename of your main SASS file.
-  // Edit the filename (/assets/sass/styles.theme.scss) and reference
-  // in /header.php accordingly if you change the name here!
-  styleName: 'styles.theme',
-
-  // URl to proxy for browsersync
-  proxyUrl: 'https://virtual.your-server.com'
-};
-
-
-/*
- * Paths
- */
-const path = {
-  src: './src',
-  sass: './src/assets/sass',
-  js: './src/assets/js',
-  jsTemp: './src/assets/js-transpiled',
-  bower: './src/bower_components',
-  fonts: './src/fonts',
-  
-  // Build folder
-  build: './build'
-};
-
-
-/*
  * ++++ Gulp and plugins
  */
 
@@ -45,15 +15,36 @@ const browserSync = require('browser-sync');
 const concat = require('gulp-concat');
 const del = require('del');
 const pngquant = require('imagemin-pngquant');
-const postcss = require("gulp-postcss");
-const cssImport = require("postcss-import");
-const cssnext = require("postcss-cssnext");
+const postcss = require('gulp-postcss');
+const cssImport = require('postcss-import');
+const cssnext = require('postcss-cssnext');
 const sourcemaps = require('gulp-sourcemaps');
 const vinylPaths = require('vinyl-paths');
 
-
 // Autoload other gulp plugins
 const plugins = require('gulp-load-plugins')();
+
+
+/*
+ * Load configuration file
+ */
+const config = require('./gulpconfig.json');
+
+
+/*
+ * Paths
+ */
+const path = {
+  bower: './src/bower_components',
+  fonts: './src/fonts',
+  js: './src/assets/js',
+  jsTemp: './src/assets/js-transpiled',
+  postcss: './src/assets/css',
+  src: './src',
+  
+  // Build folder
+  build: './build'
+};
 
 
 /*
@@ -103,7 +94,7 @@ gulp.task('cleanAfterBuild', ['buildMake'], () =>
   gulp.src([
     `${path.build}/bower_components`,
     `${path.build}/assets`,
-    `${path.build}/${config.styleName}.css`
+    `${path.build}/${config.styleName}.css` // This is the uncompressed version ;)
     // Add folders or files here if you would like to delete them
     // from your build folder:
     // path.build + '/logs/*',
@@ -170,9 +161,9 @@ gulp.task('concatBuildJS', ['copySrcToBuild', 'babel'], () =>
  * Compile CSS with PostCSS
  */
 gulp.task('css', () => (
-  gulp.src(`${path.src}/assets/css/*.css`)
+  gulp.src(`${path.postcss}/*.css`)
     .pipe(postcss([
-      cssImport({ from: `${path.src}/assets/css/${config.styleName}.css` }),
+      cssImport({ from: `${path.postcss}/${config.styleName}.css` }),
       cssnext()
     ]))
     .pipe(gulp.dest(`${path.src}/`))
@@ -181,7 +172,7 @@ gulp.task('css', () => (
 
 
 /*
- * Minify CSS and update version
+ * Concat & minify all css files found inside the 'build:cssMain'-Tag
  */
 gulp.task('concatBuildCSS', ['copySrcToBuild'], () =>
   gulp.src(`${path.build}/header-styles.php`)
@@ -193,7 +184,12 @@ gulp.task('concatBuildCSS', ['copySrcToBuild'], () =>
     
     // Minify
     .pipe(plugins.usemin({
-      cssMain: [plugins.minifyCss(), 'concat', plugins.rev()]
+      // Only transform files from the following tag
+      cssMain: [
+        plugins.minifyCss(), 
+        'concat', 
+        plugins.rev()
+      ]
     }))
     
     // Add Wordpress path again
@@ -256,7 +252,7 @@ gulp.task('updateThemeVersion', ['buildMake'], () => {
 gulp.task('default', ['fontSync', 'babel', 'css'], () => {
   browserSync.init({
     proxy: config.proxyUrl,
-    notify: false // change to true, if you like the overlay on change/reload
+    notify: config.notifyBS
   });
   
   gulp.watch(`${path.src}/assets/css/**/*.css`, ['css']);
