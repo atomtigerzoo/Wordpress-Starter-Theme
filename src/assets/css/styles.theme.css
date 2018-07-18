@@ -1,10 +1,10 @@
 /* Main styles for theme */
 
 /* User Variables and Mixins */
-@import '_responsive-breakpoints.css';
+@import 'partials/responsive-breakpoints.css';
 
 /* User styles */
-@import 'partials/_container.css';
+@import 'partials/container.css';
 
 
 /*
