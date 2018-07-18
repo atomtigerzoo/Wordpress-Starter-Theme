@@ -10,7 +10,7 @@
   "repository": "git@github.com:atomtigerzoo/wordpress-theme-init.git",
   "dependencies": {
     "babel-core": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.18.13",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
