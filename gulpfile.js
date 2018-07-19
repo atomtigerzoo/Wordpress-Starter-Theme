@@ -94,7 +94,7 @@ gulp.task('cleanAfterBuild', ['buildMake'], () =>
   gulp.src([
     `${path.build}/bower_components`,
     `${path.build}/assets`,
-    `${path.build}/${config.styleName}.css` // This is the uncompressed version ;)
+    `${path.build}/themestyle.css` // This is the uncompressed version ;)
     // Add folders or files here if you would like to delete them
     // from your build folder:
     // path.build + '/logs/*',
@@ -163,7 +163,7 @@ gulp.task('concatBuildJS', ['copySrcToBuild', 'babel'], () =>
 gulp.task('css', () => (
   gulp.src(`${path.postcss}/*.css`)
     .pipe(postcss([
-      cssImport({ from: `${path.postcss}/${config.styleName}.css` }),
+      cssImport({ from: `${path.postcss}/themestyle` }),
       cssnext()
     ]))
     .pipe(gulp.dest(`${path.src}/`))
@@ -186,16 +186,16 @@ gulp.task('concatBuildCSS', ['copySrcToBuild'], () =>
     .pipe(plugins.usemin({
       // Only transform files from the following tag
       cssMain: [
-        plugins.minifyCss(), 
-        'concat', 
+        plugins.cleanCss(),
+        'concat',
         plugins.rev()
       ]
     }))
     
     // Add Wordpress path again
     .pipe(plugins.replace(
-      `/${config.styleName}`,
-      `<?php echo get_template_directory_uri(); ?>/${config.styleName}`
+      'href="/themestyle-build',
+      'href="<?php echo get_template_directory_uri(); ?>/themestyle-build'
     ))
 
     .pipe(gulp.dest(path.build))
