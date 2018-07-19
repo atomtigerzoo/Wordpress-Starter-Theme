@@ -60,7 +60,7 @@ gulp.task('fontSync', () =>
   gulp.src([
     // path.bower + '/fontawesome/fonts/**.*'
   ])
-  .pipe(gulp.dest(path.fonts))
+    .pipe(gulp.dest(path.fonts))
 );
 
 
@@ -72,9 +72,9 @@ gulp.task('copySrcToBuild', ['cleanBuildFolder', 'css'], () =>
     `${path.src}/**/.*`,
     `${path.src}/**/*`
   ])
-  .pipe(gulp.dest(
-    `${path.build}/`
-  ))
+    .pipe(gulp.dest(
+      `${path.build}/`
+    ))
 );
 
 
@@ -99,7 +99,7 @@ gulp.task('cleanAfterBuild', ['buildMake'], () =>
     // from your build folder:
     // path.build + '/logs/*',
   ])
-  .pipe(vinylPaths(del))
+    .pipe(vinylPaths(del))
 );
 
 
@@ -120,13 +120,13 @@ gulp.task('babelConcatMainJS', () =>
     // Exclude files or folders that should not be transpiled:
     // `!${path.js}/some-script-to-be-excluded.js`,
   ])
-  .pipe(sourcemaps.init())
-  .pipe(babel())
-  .pipe(concat('scripts.build.js'))
-  .pipe(sourcemaps.write('.'))
-  .pipe(gulp.dest(path.jsTemp))
+    .pipe(sourcemaps.init())
+    .pipe(babel())
+    .pipe(concat('scripts.build.js'))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(path.jsTemp))
 
-  .pipe(browserSync.stream())
+    .pipe(browserSync.stream())
 );
 
 
