@@ -6,9 +6,8 @@
 
 - Clone (or download) this repository
 - Copy `gulpconfig.json.default` to `gulpconfig.json`
-- Edit `gulpconfig.json` to match your development proxy-url and name
-  If you change the css-style filename, change it according in /src/assets/css/
-  to match the filename given inside the config
+- Edit `gulpconfig.json` to match your development proxy-url and if you 
+  would like to see the BrowserSync overlay
 - Edit `bower.json` and `package.json` (project name, your details, etc) if 
   you like to change it
 - Run `yarn install` to download and install all packages
