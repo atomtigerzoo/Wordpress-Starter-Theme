@@ -23,7 +23,13 @@ svg use {
     pointer-events: none;
 }
 
-a{}
+a{
+  color: tomato;
+
+  &:hover{
+    text-decoration: none;
+  }
+}
 
 img{
 	height: auto;

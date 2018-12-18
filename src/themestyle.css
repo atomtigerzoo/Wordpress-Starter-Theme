@@ -6,6 +6,22 @@
 	Breakpoint mixins
 */
 
+@custom-media --small-down (max-width: 575px);
+
+@custom-media --medium-down (max-width: 734px);
+
+@custom-media --large-down (max-width: 991px);
+
+@custom-media --xlarge-down (max-width: 1199px);
+
+@custom-media --small-up (min-width: 576px);
+
+@custom-media --medium-up (min-width: 735px);
+
+@custom-media --large-up (min-width: 992px);
+
+@custom-media --xlarge-up (min-width: 1200px);
+
 /* User styles */
 
 /*
@@ -20,21 +36,27 @@ html{}
 
 body{
   background-color: #fff;
-  font-family: sans-serif;
+  font-family: sans-serif
 
   /* Breakpoint example */
 }
 
-@media (min-width: 1200px){
+@media (--xlarge-up){
 
-  body{}
-}
+body{
+}}
 
 svg use {
     pointer-events: none;
 }
 
-a{}
+a{
+  color: tomato
+}
+
+a:hover{
+    text-decoration: none;
+  }
 
 img{
 	height: auto;

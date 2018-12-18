@@ -17,7 +17,7 @@ const del = require('del');
 const pngquant = require('imagemin-pngquant');
 const postcss = require('gulp-postcss');
 const cssImport = require('postcss-import');
-const cssnext = require('postcss-cssnext');
+const postcssPresetEnv = require('postcss-preset-env');
 const sourcemaps = require('gulp-sourcemaps');
 const vinylPaths = require('vinyl-paths');
 
@@ -162,10 +162,18 @@ gulp.task('concatBuildJS', ['copySrcToBuild', 'babel'], () =>
  */
 gulp.task('css', () => (
   gulp.src(`${path.postcss}/*.css`)
-    .pipe(postcss([
-      cssImport({ from: `${path.postcss}/themestyle` }),
-      cssnext()
-    ]))
+    .pipe(
+      postcss([
+        cssImport({ from: `${path.postcss}/themestyle` }),
+        postcssPresetEnv({
+          stage: 2,
+          features: {
+            'nesting-rules': true
+          }
+        })
+      ])
+    )
+    // Minify
     .pipe(gulp.dest(`${path.src}/`))
     .pipe(browserSync.stream())
 ));
