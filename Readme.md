@@ -16,6 +16,14 @@
 - Be happy and contribute if you like 😍 
 
 
+## Webfonts
+
+For privacy reasons please use selfhosted webfonts instead of Google Fonts or
+other third-party vendors that often include trackers. An efficient and nice 
+way to choose and include fonts found on Google Fonts is the following site:
+https://google-webfonts-helper.herokuapp.com/fonts
+
+
 ## 🔨 Gulp tasks
 
 There are three gulp tasks you can run:
