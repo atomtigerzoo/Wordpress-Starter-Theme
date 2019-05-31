@@ -26,6 +26,7 @@
     "gulp-uglify": "^3.0.0",
     "gulp-usemin": "^0.3.29",
     "imagemin-pngquant": "^5.1.0",
+    "postcss-custom-media": "^7.0.8",
     "postcss-import": "^11.1.0",
     "postcss-preset-env": "^6.5.0",
     "vinyl-paths": "^2.1.0"

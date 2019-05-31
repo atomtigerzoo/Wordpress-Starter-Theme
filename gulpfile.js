@@ -18,6 +18,7 @@ const pngquant = require('imagemin-pngquant');
 const postcss = require('gulp-postcss');
 const cssImport = require('postcss-import');
 const postcssPresetEnv = require('postcss-preset-env');
+const postcssCustomMedia = require('postcss-custom-media');
 const sourcemaps = require('gulp-sourcemaps');
 const vinylPaths = require('vinyl-paths');
 
@@ -151,6 +152,7 @@ gulp.task('css', () => (
     .pipe(
       postcss([
         cssImport({ from: `${path.postcss}/themestyle` }),
+        postcssCustomMedia(),
         postcssPresetEnv({
           stage: 2,
           features: {
