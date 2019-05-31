@@ -4,15 +4,15 @@
 
 ## 📄 Installation
 
-- Clone (or download) this repository
+- Clone *(or download)* this repository
 - Copy `gulpconfig.json.default` to `gulpconfig.json`
 - Edit `gulpconfig.json` to match your development proxy-url and if you 
   would like to see the BrowserSync overlay
-- Edit `bower.json` and `package.json` (project name, your details, etc) if 
-  you like to change it
+- Edit `package.json` (project name, your details, etc) and this readme if you 
+  like to change it
 - Run `yarn install` to download and install all packages
 - If everything went fine see *Gulp tasks* below
-- Develop your theme, install more yarn/npm or bower packages
+- Develop your theme, install more packages, etc pp.
 - Be happy and contribute if you like 😍 
 
 

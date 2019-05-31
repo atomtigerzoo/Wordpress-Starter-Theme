@@ -1,6 +1,6 @@
 <!-- build:jsFooter /assets-build/js/scripts.js -->
 <!-- vendors -->
-<!--//<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/jquery/dist/jquery.min.js"></script>-->
+<!--//<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/some/path/your-script.js"></script>-->
 
 <!-- user -->
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js-transpiled/scripts.build.js"></script>

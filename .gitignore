@@ -11,9 +11,6 @@ src/assets/js-transpiled/*
 src/logs/*
 build/logs/*
 
-# Bower
-src/bower_components/*
-
 # Node
 node_modules/*
 node_modules

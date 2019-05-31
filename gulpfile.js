@@ -35,7 +35,6 @@ const config = require('./gulpconfig.json');
  * Paths
  */
 const path = {
-  bower: './src/bower_components',
   fonts: './src/fonts',
   js: './src/assets/js',
   jsTemp: './src/assets/js-transpiled',
@@ -51,18 +50,6 @@ const path = {
  * ++++ Task runners
  * Please see the tasks at the bottom of this file!
  */
-
-/*
- * Copy fonts from bower folder to src
- * Add all font directories you want to keep in sync
- */
-gulp.task('fontSync', () =>
-  gulp.src([
-    // path.bower + '/fontawesome/fonts/**.*'
-  ])
-    .pipe(gulp.dest(path.fonts))
-);
-
 
 /*
  * Copy all files from source to build
@@ -92,7 +79,6 @@ gulp.task('cleanBuildFolder', () =>
  */
 gulp.task('cleanAfterBuild', ['buildMake'], () =>
   gulp.src([
-    `${path.build}/bower_components`,
     `${path.build}/assets`,
     `${path.build}/themestyle.css` // This is the uncompressed version ;)
     // Add folders or files here if you would like to delete them
@@ -254,10 +240,10 @@ gulp.task('updateThemeVersion', ['buildMake'], () => {
 
 /*
  * Default
- * Compile, transpile, copy fonts and serve the browsersync
+ * Compile, transpile and serve the browsersync
  * version of the theme for development.
  */
-gulp.task('default', ['fontSync', 'babel', 'css'], () => {
+gulp.task('default', ['babel', 'css'], () => {
   browserSync.init({
     proxy: config.proxyUrl,
     notify: config.notifyBS
@@ -272,9 +258,8 @@ gulp.task('default', ['fontSync', 'babel', 'css'], () => {
     `${path.src}/**/*.php`,
     
     // Exclude folders/files from watch task here:
-    `!${path.src}/bower_components/**/*`,
     `!${path.src}/logs/**/*`,
-    `!${path.src}/fonts/**/*`
+    `!${path.fonts}/**/*`
   ]).on('change', browserSync.reload);
 });
 
