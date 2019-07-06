@@ -1,1 +1,1 @@
-{"version":3,"sources":["scripts.js"],"names":[],"mappings":";;AAAA;;;;AAIA,CAAC,YAAM,CAEN,CAFD","file":"scripts.build.js","sourcesContent":["/*\n * User scripts\n */\n\n(() => {\n\t\n})();\n"]}
+{"version":3,"sources":["scripts.js"],"names":[],"mappings":";;AAAA;;;;AAIA,CAAC,YAAM;AACL;AACD,CAFD","file":"scripts.build.js","sourcesContent":["/*\n * User scripts\n */\n\n(() => {\n  // add something...\n})();\n"]}

@@ -4,5 +4,7 @@
  * User scripts
  */
 
-(function () {})();
+(function () {
+  // add something...
+})();
 //# sourceMappingURL=scripts.build.js.map
