@@ -6,12 +6,11 @@
 
 - Clone *(or download)* this repository
 - Copy `gulpconfig.json.default` to `gulpconfig.json`
-- Edit `gulpconfig.json` to match your development proxy-url and if you 
-  would like to see the BrowserSync overlay
-- Edit `package.json` (project name, your details, etc) and this readme if you 
-  like to change it
-- Run `yarn install` to download and install all packages
-- If everything went fine see *Gulp tasks* below
+- Edit `gulpconfig.json` to match your development proxy-url and if you would 
+  like to see the BrowserSync overlay
+- Edit `package.json` (project name, your details, etc) and this readme
+- Run `npm install` or `yarn install` to download and install all packages
+- If everything went fine see the *Gulp tasks* below
 - Develop your theme, install more packages, etc pp.
 - Be happy and contribute if you like 😍 
 

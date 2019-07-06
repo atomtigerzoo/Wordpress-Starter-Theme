@@ -1,7 +1,7 @@
 /*
  * Main gulp file for all actions
  *
- * @version 0.2
+ * @version 0.3
  */
 
 /*
@@ -48,61 +48,14 @@ const path = {
 
 
 /*
- * ++++ Task runners
- * Please see the tasks at the bottom of this file!
+ * ++++ Methods
  */
-
-/*
- * Copy all files from source to build
- */
-gulp.task('copySrcToBuild', ['cleanBuildFolder', 'css'], () =>
-  gulp.src([
-    `${path.src}/**/.*`,
-    `${path.src}/**/*`
-  ])
-    .pipe(gulp.dest(
-      `${path.build}/`
-    ))
-);
-
-
-/*
- * Clean build folder
- */
-gulp.task('cleanBuildFolder', () =>
-  gulp.src(`${path.build}/*`)
-    .pipe(vinylPaths(del))
-);
-
-
-/*
- * Remove unused files and folders from build folder
- */
-gulp.task('cleanAfterBuild', ['buildMake'], () =>
-  gulp.src([
-    `${path.build}/assets`,
-    `${path.build}/themestyle.css` // This is the uncompressed version ;)
-    // Add folders or files here if you would like to delete them
-    // from your build folder:
-    // path.build + '/logs/*',
-  ])
-    .pipe(vinylPaths(del))
-);
-
-
-/*
- * Run all transpile tasks
- */
-gulp.task('babel', ['babelConcatMainJS'], () =>
-  gulp
-);
-
 
 /*
  * Transpile Javascript and concat everything for development
  */
-gulp.task('babelConcatMainJS', () =>
-  gulp.src([
+function babelConcatMainJS() {
+  return gulp.src([
     `${path.js}/*.js`,
     // Exclude files or folders that should not be transpiled:
     // `!${path.js}/some-script-to-be-excluded.js`,
@@ -113,65 +66,42 @@ gulp.task('babelConcatMainJS', () =>
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(path.jsTemp))
 
-    .pipe(browserSync.stream())
-);
+    .pipe(browserSync.stream());
+}
+exports.babelConcatMainJS = babelConcatMainJS;
 
 
 /*
- * Concatenate and minify javascript
+ * Empty complete build folder
  */
-gulp.task('concatBuildJS', ['copySrcToBuild', 'babel'], () =>
-  gulp.src(`${path.build}/footer-scripts.php`)
-    // Remove Wordpress path
-    .pipe(plugins.replace(
-      '<?php echo get_template_directory_uri(); ?>',
-      ''
-    ))
-    // Uglify
-    .pipe(plugins.usemin({
-      jsFooter: [
-        plugins.uglify({ compress: true }),
-        'concat',
-        plugins.rev()
-      ]
-    }))
-    // Add Wordpress path again with build path
-    .pipe(plugins.replace(
-      '/assets-build/',
-      '<?php echo get_template_directory_uri(); ?>/assets-build/'
-    ))
-    .pipe(gulp.dest(path.build))
-);
+function cleanBuildFolder() {
+  return gulp.src(`${path.build}/*`)
+    .pipe(vinylPaths(del));
+}
+exports.cleanBuildFolder = cleanBuildFolder;
 
 
 /*
- * Compile CSS with PostCSS
+ * Remove unused files and folders from build folder
  */
-gulp.task('css', () => (
-  gulp.src(`${path.postcss}/*.css`)
-    .pipe(
-      postcss([
-        cssImport({ from: `${path.postcss}/themestyle` }),
-        postcssCustomMedia(),
-        postcssPresetEnv({
-          stage: 2,
-          features: {
-            'nesting-rules': true
-          }
-        })
-      ])
-    )
-    // Minify
-    .pipe(gulp.dest(`${path.src}/`))
-    .pipe(browserSync.stream())
-));
+function cleanAfterBuild() {
+  return gulp.src([
+    `${path.build}/assets`,
+    `${path.build}/themestyle.css` // This is the uncompressed version ;)
+    // Add folders or files here if you would like to delete them
+    // from your build folder:
+    // path.build + '/logs/*',
+  ])
+    .pipe(vinylPaths(del));
+}
+exports.cleanAfterBuild = cleanAfterBuild;
 
 
 /*
  * Concat & minify all css files found inside the 'build:cssMain'-Tag
  */
-gulp.task('concatBuildCSS', ['copySrcToBuild'], () =>
-  gulp.src(`${path.build}/header-styles.php`)
+function concatenateAndMinifyBuildCSS() {
+  return gulp.src(`${path.build}/header-styles.php`)
     // Remove Wordpress path for minification
     .pipe(plugins.replace(
       '<?php echo get_template_directory_uri(); ?>',
@@ -194,15 +124,83 @@ gulp.task('concatBuildCSS', ['copySrcToBuild'], () =>
       'href="<?php echo get_template_directory_uri(); ?>/themestyle-build'
     ))
 
-    .pipe(gulp.dest(path.build))
-);
+    .pipe(gulp.dest(path.build));
+}
+exports.concatenateAndMinifyBuildCSS = concatenateAndMinifyBuildCSS;
+
+
+/*
+ * Concatenate and minify javascript
+ */
+function concatenateAndMinifyBuildJS() {
+  return gulp.src(`${path.build}/footer-scripts.php`)
+    // Remove Wordpress path
+    .pipe(plugins.replace(
+      '<?php echo get_template_directory_uri(); ?>',
+      ''
+    ))
+    // Uglify
+    .pipe(plugins.usemin({
+      jsFooter: [
+        plugins.uglify({ compress: true }),
+        'concat',
+        plugins.rev()
+      ]
+    }))
+    // Add Wordpress path again with build path
+    .pipe(plugins.replace(
+      '/assets-build/',
+      '<?php echo get_template_directory_uri(); ?>/assets-build/'
+    ))
+    .pipe(gulp.dest(path.build));
+}
+exports.concatenateAndMinifyBuildJS = concatenateAndMinifyBuildJS;
+
+
+/*
+ * Copy all files from source to build
+ */
+function copySrcToBuild() {
+  return gulp.src([
+    `${path.src}/**/.*`,
+    `${path.src}/**/*`
+  ])
+    .pipe(gulp.dest(
+      `${path.build}/`
+    ));
+}
+exports.copySrcToBuild = copySrcToBuild;
+
+
+/*
+ * Compile CSS with PostCSS
+ */
+function css() {
+  return gulp.src(`${path.postcss}/*.css`)
+    .pipe(
+      postcss([
+        cssImport({ from: `${path.postcss}/themestyle` }),
+        postcssCustomMedia(),
+        postcssPresetEnv({
+          stage: 2,
+          features: {
+            'nesting-rules': true
+          }
+        })
+      ])
+    )
+    // Minify
+    .pipe(gulp.dest(`${path.src}/`))
+    .pipe(browserSync.stream());
+}
+exports.css = css;
 
 
 /*
  * Optimise images in build folder
  */
-gulp.task('imageOptimise', ['copySrcToBuild'], () =>
-  gulp.src(`${path.build}/img/*`)
+function optimiseImages() {
+  return gulp.src(`${path.build}/img/*`)
     .pipe(plugins.imagemin({
       // JPG
       progressive: true,
@@ -213,14 +211,15 @@ gulp.task('imageOptimise', ['copySrcToBuild'], () =>
       optimizationLevel: 3,
       use: [pngquant()]
     }))
-    .pipe(gulp.dest(`${path.build}/img/`))
-);
+    .pipe(gulp.dest(`${path.build}/img/`));
+}
+exports.optimiseImages = optimiseImages;
 
 
 /*
  * Update version in CSS for Wordpress (for new builds)
  */
-gulp.task('updateThemeVersion', ['buildMake'], () => {
+function updateThemeVersion() {
   const d = new Date();
 
   const buildDate = d.getFullYear() +
@@ -232,28 +231,30 @@ gulp.task('updateThemeVersion', ['buildMake'], () => {
   return gulp.src(`${path.build}/style.css`)
     .pipe(plugins.replace('__DEVEL__', `-build.${buildDate}`))
     .pipe(gulp.dest(path.build));
-});
+}
+exports.updateThemeVersion = updateThemeVersion;
 
 
-/*
- * ++++ Task runners
+/**
+ * + + + + + + + + + + + +
+ * Tasks
+ *
  */
-
 
 /*
  * Default
  * Compile, transpile and serve the browsersync
  * version of the theme for development.
  */
-gulp.task('default', ['babel', 'css'], () => {
+gulp.task('default', gulp.series(babelConcatMainJS, css, () => {
   browserSync.init({
     proxy: config.proxyUrl,
     notify: config.notifyBS
   });
   
-  gulp.watch(`${path.src}/assets/css/**/*.css`, ['css']);
+  gulp.watch(`${path.src}/assets/css/**/*.css`, gulp.series(css));
 
-  gulp.watch(`${path.js}/**/*.js`, ['babel']);
+  gulp.watch(`${path.js}/**/*.js`, gulp.series('babelConcatMainJS'));
 
   gulp.watch([
     `${path.jsTemp}/*.js`,
@@ -263,33 +264,30 @@ gulp.task('default', ['babel', 'css'], () => {
     `!${path.src}/logs/**/*`,
     `!${path.fonts}/**/*`
   ]).on('change', browserSync.reload);
-});
+}));
 
 
 /*
  * Build task
  */
-gulp.task('build', [
-  'buildMake',
-  'imageOptimise',
-  'updateThemeVersion',
-  'cleanAfterBuild'
-]);
-
-/*
- * Internal build runner - don't run this! Run gulp build instead
- */
-gulp.task('buildMake', [
-  'css',
-  'babel',
-  'cleanBuildFolder',
-  'copySrcToBuild',
-  'concatBuildJS',
-  'concatBuildCSS'
-]);
+gulp.task('build', gulp.series(
+  // Run CSS & JS transpilation in src-folder again
+  css,
+  babelConcatMainJS,
+  // Clean build and copy src
+  cleanBuildFolder,
+  copySrcToBuild,
+  // Build everything together
+  concatenateAndMinifyBuildJS,
+  concatenateAndMinifyBuildCSS,
+  optimiseImages,
+  updateThemeVersion,
+  // Clean unused and temp files
+  cleanAfterBuild
+));
 
 
 /*
- * Remove everything from the build folder
+ * Clean build folder shortcut
  */
-gulp.task('clean', ['cleanBuildFolder']);
+gulp.task('clean', gulp.series(cleanBuildFolder));
