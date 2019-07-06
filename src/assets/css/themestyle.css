@@ -3,48 +3,18 @@
 /* User Variables and Mixins */
 @import 'partials/responsive-breakpoints.css';
 
-/* User styles */
+/* User styles ordered by importance */
+@import 'partials/globals.css';
 @import 'partials/container.css';
 
 
 /*
-	++++ GLOBALS
-*/
-html{}
+  Please move everything into partials afterwards...
+ */
+
 body{
-  background-color: #fff;
-  font-family: -system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-
   /* Breakpoint example */
-  @media (--xlarge-up){}
-}
-
-svg use {
-    pointer-events: none;
-}
-
-a{
-  color: tomato;
-
-  &:hover{
-    text-decoration: none;
+  @media (--xlarge-up){
+    font-size: 120%;
   }
 }
-
-img{
-	height: auto;
-	max-width: 100%;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6{}
-
-iframe{
-	max-width: 100%;
-}
-
-strong, b{}
