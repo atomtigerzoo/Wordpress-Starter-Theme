@@ -20,7 +20,6 @@ const cssImport = require('postcss-import');
 const postcssPresetEnv = require('postcss-preset-env');
 const postcssCustomMedia = require('postcss-custom-media');
 const sourcemaps = require('gulp-sourcemaps');
-const vinylPaths = require('vinyl-paths');
 
 // Autoload other gulp plugins
 const plugins = require('gulp-load-plugins')();
@@ -77,8 +76,7 @@ exports.babelConcatMainJS = babelConcatMainJS;
  * Empty complete build folder
  */
 function cleanBuildFolder() {
-  return gulp.src(`${path.build}/*`)
-    .pipe(vinylPaths(del));
+  return del([`${path.build}/*`]);
 }
 exports.cleanBuildFolder = cleanBuildFolder;
 
@@ -87,14 +85,13 @@ exports.cleanBuildFolder = cleanBuildFolder;
  * Remove unused files and folders from build folder
  */
 function cleanAfterBuild() {
-  return gulp.src([
+  return del([
     `${path.build}/assets`,
     `${path.build}/themestyle.css` // This is the uncompressed version ;)
     // Add folders or files here if you would like to delete them
     // from your build folder:
     // path.build + '/logs/*',
-  ])
-    .pipe(vinylPaths(del));
+  ]);
 }
 exports.cleanAfterBuild = cleanAfterBuild;
 
