@@ -61,7 +61,9 @@ function babelConcatMainJS() {
     // `!${path.js}/some-script-to-be-excluded.js`,
   ])
     .pipe(sourcemaps.init())
-    .pipe(babel())
+    .pipe(babel({
+      presets: ['@babel/preset-env']
+    }))
     .pipe(concat('scripts.build.js'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(path.jsTemp))

@@ -9,26 +9,28 @@
   "main": "index.js",
   "repository": "git@github.com:atomtigerzoo/wordpress-theme-init.git",
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.26.3",
     "del": "^3.0.0",
     "gulp": "^4.0.2",
-    "gulp-babel": "^7.0.0",
-    "gulp-clean-css": "^3.9.4",
+    "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^6.0.0",
-    "gulp-load-plugins": "^1.5.0",
-    "gulp-postcss": "^7.0.0",
+    "gulp-load-plugins": "^2.0.0",
+    "gulp-postcss": "^8.0.0",
     "gulp-replace": "^1.0.0",
-    "gulp-rev": "^8.1.0",
-    "gulp-sourcemaps": "^2.6.1",
-    "gulp-uglify": "^3.0.0",
+    "gulp-rev": "^9.0.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
     "gulp-usemin": "^0.3.29",
     "imagemin-pngquant": "^8.0.0",
     "postcss-custom-media": "^7.0.8",
     "postcss-import": "^11.1.0",
     "postcss-preset-env": "^6.5.0",
     "vinyl-paths": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "gulp-babel": "^8.0.0"
   }
 }
