@@ -1,7 +1,7 @@
 /*
  * Main gulp file for all actions
  *
- * @version 0.3
+ * @version 1.3.1
  */
 
 /*
