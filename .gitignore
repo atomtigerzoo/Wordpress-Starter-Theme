@@ -1,16 +1,13 @@
-# Config
-gulpconfig.json
+# Exclude built files from repo if you 
+# use a build script on deployment
+#mix-manifext.json
+#public/dist/*
 
-# Exclude /build if you don't want it in your repo
-#build/*
+# Exclude:
+node_modules/
 
-# Transpiled JS
-src/assets/js-transpiled/*
+*.log
+*.sql
+*.sqlite
 
-# Logs
-src/logs/*
-build/logs/*
-
-# Node
-node_modules/*
-node_modules
+.DS_Store

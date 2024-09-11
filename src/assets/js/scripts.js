@@ -1,7 +1,0 @@
-/*
- * User scripts
- */
-
-(() => {
-  // add something...
-})();
