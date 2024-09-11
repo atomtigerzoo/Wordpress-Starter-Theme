@@ -521,6 +521,10 @@ a{
             text-decoration: underline wavy #7dd3fc;
 }
 
+a:hover{
+        text-decoration: none;
+    }
+
 .container {
   width: 100%;
 }
