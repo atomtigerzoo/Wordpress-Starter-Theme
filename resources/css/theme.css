@@ -1,3 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*
+    Main CSS file that should import all others
+*/
+
+@import "tailwindcss/base";
+@import './partials/global.css';
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+/*
+    Please use partials for any more CSS styling...
+*/

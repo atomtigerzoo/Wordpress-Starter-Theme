@@ -1,0 +1,8 @@
+/*
+    Global styling
+*/
+
+a{
+    color: theme('colors.sky.600');
+    text-decoration: underline wavy theme('colors.sky.300');
+}

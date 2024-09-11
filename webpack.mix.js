@@ -61,6 +61,12 @@ mix
 mix.setPublicPath('./'); // this is not the public path from above!
 mix.version(); // enable versioning
 
+mix.webpackConfig({
+    // Enable the following if you need to debug webpack compilation
+    // stats: {
+    //     children: true
+    // }
+});
 
 // Clean up previous built files
 mix.clean({
