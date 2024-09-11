@@ -12,7 +12,7 @@
   "description": "",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
-    "browser-sync": "^2.29.3",
+    "browser-sync": "^3.0.2",
     "browser-sync-webpack-plugin": "^2.3.0",
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
