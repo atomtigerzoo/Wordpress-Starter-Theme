@@ -5,9 +5,11 @@
  */
 
 // Only change if really needed or changed in 'webpack.mix.js'
-const MIXASSETS_FILES_CSS = 'dist/css/theme.css';
-const MIXASSETS_FILES_JS = 'dist/js/app.js';
-const MIXASSETS_FILES_VENDOR = 'dist/js/vendor.js';
+const MIXASSETS_FILES_CSS = 'css/theme.css';
+const MIXASSETS_FILES_JS = 'js/app.js';
+const MIXASSETS_FILES_VENDOR = 'js/vendor.js';
+
+const MIXASSETS_DIST_FOLDER_PATH = '/dist';
 
 
 /**
@@ -31,7 +33,7 @@ function getCompiledAssetPath(string $assetName) : string {
     static $manifest = null;
     static $last_modified = 0;
 
-    $manifest_file = get_template_directory() . '/../mix-manifest.json';
+    $manifest_file = get_template_directory() . MIXASSETS_DIST_FOLDER_PATH . '/mix-manifest.json';
     $current_modified = filemtime($manifest_file);
 
     if ($manifest === null || $current_modified > $last_modified) {
@@ -45,15 +47,14 @@ function getCompiledAssetPath(string $assetName) : string {
         }
     }
 
-    $theme_public_dir = '/' . THEME_PUBLIC_DIR . '/';
-    $prefixedAssetsName = $theme_public_dir . $assetName;
+    $prefixedAssetsName = '/' . $assetName;
 
     if (!isset($manifest[$prefixedAssetsName])) {
         error_log('Error: Provided asset "'. $prefixedAssetsName . '" not found in mix-manifest.json.');
         return false;
     }
 
-    return str_replace($theme_public_dir, '/', $manifest[$prefixedAssetsName]);
+    return MIXASSETS_DIST_FOLDER_PATH . $manifest[$prefixedAssetsName];
 }
 
 
