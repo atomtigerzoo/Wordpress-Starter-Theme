@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+const defaultTheme = require('tailwindcss/defaultTheme');
 const publicPath = './public';
 
 module.exports = {
@@ -8,7 +9,14 @@ module.exports = {
     `${publicPath}/**/*.js`,
   ],
   theme: {
-    extend: {},
+    extend: {
+      // fontFamily: {
+      //   sans: [
+      //     'Anton',
+      //     ...defaultTheme.fontFamily.sans,
+      //   ]
+      // },
+    },
   },
   plugins: [],
 }

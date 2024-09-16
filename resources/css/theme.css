@@ -5,6 +5,8 @@
 @import "tailwindcss/base";
 @import './partials/global.css';
 
+/* 👉 See ./partials/font-anton.css for an example on how to enable self-hosted fonts */
+
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";

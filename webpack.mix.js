@@ -35,11 +35,17 @@ const proxyUrl = 'https://wp-starter.ddev.site ';
 const publicFolder = 'public';
 const distFolder = 'dist';
 
+// Public path needs to be set for non-Laravel installations
+mix.setPublicPath(`${publicFolder}/${distFolder}`); // this is not meant to be the public path from above!
+// Enable versioning
+mix.version();
 
 // Mix options
-mix.setPublicPath(`${publicFolder}/${distFolder}`); // this is not meant to be the public path from above!
-mix.version(); // enable versioning
+mix.options({
+    processCssUrls: false, // disable url() processing in CSS files (needed for fonts and images inside CSS files)
+});
 
+// Webpack config options
 mix.webpackConfig({
     // ❓ Enable the following if you need to debug webpack compilation
     // stats: {
@@ -48,6 +54,7 @@ mix.webpackConfig({
 });
 
 
+// Asset compilation
 mix
     /*
         🚀 Vendor/Library scripts

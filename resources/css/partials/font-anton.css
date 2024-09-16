@@ -1,0 +1,36 @@
+/*
+    ❓ How to use self-hosted fonts
+    
+    1.
+    To enable and use the Anton font, download it here:
+    https://fontsource.org/fonts/anton
+    
+    2.
+    Copy `anton-latin-400-normal.woff2` from the download into `public/fonts`
+
+    3.
+    Uncomment `@import './partials/font-anton.css';` inside themes.css
+    -> the path inside CSS to the font must be prefixed with `../../fonts/[font-file]`
+
+    4.
+    Inside `tailwind.config.js` use/activate the font inside the `theme.extend` i.e.:
+
+    fontFamily: {
+        sans: [
+            'Anton',
+            ...defaultTheme.fontFamily.sans,
+        ]
+    },
+
+    4.
+    Run `npm run dev`
+
+*/
+/* anton-latin-400-normal */
+@font-face {
+    font-family: 'Anton';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(../../fonts/anton-latin-400-normal.woff2) format('woff2');
+}
